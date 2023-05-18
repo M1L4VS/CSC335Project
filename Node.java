@@ -1,58 +1,39 @@
+
 /**
  * Write a description of class Node here.
- * First version of Dijkstra's algorithm
+ * Node class
  * @author Mila van Stokkum
- * @version v1 04/05/2023 - 
+ * @version v2 30/05/2023 -
  */
 
- //Things to import so I can use Java 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Scanner;
-import java.awt.event.*;
-import javax.swing.KeyStroke.*;
-import javax.swing.JDialog.*;
-import java.awt.geom.*;
+import java.util.ArrayList;
 
-public class Node extends JFrame {
+public class Node {
+   private String _name;
+   private int _distanceFromStart = Integer.MAX_VALUE;
+   private ArrayList<Link> _adjacentNodes = new ArrayList<Link>();
 
-    private String nodeName;
-    private int nodeNumber;
-    private int numberOfNodes;
-    private int distanceFromStart;
-
-   Canvas myGraphic;
-
-    public Node (String newName) {
-       nodeName = newName;
-    }
-
-    public Node (int newNumber, String newName) {
-        nodeName = newName;
-        nodeNumber = newNumber;
-     }
-
-     public String returnName(){
-        return nodeName();
-     }
-
-     public int returnNumber(){
-        return nodeNumber();
-     }
-
-     public Node(int newNumber, String newName, int numberofNodes)
-     {        
-         nodeName = newName;
-         nodeNumber = newNumber;
-         numberOfNodes = numberOfNodes;
-     }
-
-     public void setDistance(int dist){
-      distanceFromStart = dist;
+   public Node(String newName) {
+      _name = newName;
    }
- 
-  public int getDistance(){
-      return distanceFromStart;
+
+   public String getName() {
+      return _name;
    }
- 
+
+   public void setDistance(int distance) {
+      _distanceFromStart = distance;
+   }
+
+   public int getDistance() {
+      return _distanceFromStart;
+   }
+
+   public void addLink(Link link) {
+      _adjacentNodes.add(link);
+   }
+
+   public String toString() {
+      return _name;
+   }
 }
