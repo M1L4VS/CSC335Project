@@ -15,6 +15,7 @@ public class UseNode {
     public UseNode(){
 
         System.out.println("how many nodes would you like ?");
+        System.out.println("making " + keyboard.nextInt() + " nodes");
         numberOfNodes = keyboard.nextInt(); //add some catch for if they don't enter a number
         Node[] arrayOfNodes = new Node[numberOfNodes];
         //Node nodeOne = new Node("h");
