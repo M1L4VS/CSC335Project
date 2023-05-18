@@ -19,6 +19,9 @@ public class Node extends JFrame {
     private String nodeName;
     private int nodeNumber;
     private int numberOfNodes;
+    private int distanceFromStart;
+
+   Canvas myGraphic;
 
     public Node (String newName) {
        nodeName = newName;
@@ -43,4 +46,13 @@ public class Node extends JFrame {
          nodeNumber = newNumber;
          numberOfNodes = numberOfNodes;
      }
+
+     public void setDistance(int dist){
+      distanceFromStart = dist;
+   }
+ 
+  public int getDistance(){
+      return distanceFromStart;
+   }
+ 
 }

@@ -19,6 +19,7 @@ public class UseNode {
         Node[] arrayOfNodes = new Node[numberOfNodes];
         //Node nodeOne = new Node("h");
         //System.out.println(nodeOne);
+        Node[] arrayOfNodes = new Node[numberOfNodes];
            
         for(int i = 0; i < numberOfNodes; i++){
             arrayOfNodes[i] = new Node(i, names[i], numberOfNodes);
