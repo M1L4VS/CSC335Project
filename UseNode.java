@@ -2,7 +2,7 @@
  * Write a description of class UseNode here.
  * Use node class
  * @author Mila van Stokkum
- * @version v2 18/05/2023 
+ * @version v3 26/05/2023
  */
 import java.util.Scanner;
 import javax.swing.*;
@@ -30,6 +30,7 @@ public class UseNode {
         Node nodeE = new Node("E");
         Node nodeF = new Node("F");
 
+        nodeA.setDistance(0);
         nodeA.addLink(new Link(nodeB, 2));
         nodeA.addLink(new Link(nodeC, 4));
 
@@ -43,6 +44,38 @@ public class UseNode {
         nodeD.addLink(new Link(nodeF, 4));
 
         nodeE.addLink(new Link(nodeF, 2));
+
+        // Start at node A
+        Node currentNode = nodeA;
+        Node nextStartingNode = null;
+        while (true) {
+
+            // Print the current node
+            System.out.println(
+                    "Current node: " + currentNode.getName() + " Total distance: " + currentNode.getDistance());
+
+            for (Link link : currentNode.getLinks()) {
+                Node nextNode = link.getEnd();
+                int distance = currentNode.getDistance() + link.getWeight();
+                if (distance < nextNode.getDistance()) {
+                    nextNode.setDistance(distance);
+                }
+
+                // Set the closest node as the next starting node
+                if (nextStartingNode == null || nextNode.getDistance() < nextStartingNode.getDistance()) {
+                    nextStartingNode = nextNode;
+                }
+            }
+
+            currentNode = nextStartingNode;
+            nextStartingNode = null;
+
+            // If there are no more nodes to visit, break out of the loop
+            if (currentNode == null) {
+                System.out.println("No more nodes to visit");
+                break;
+            }
+        }
 
         // System.out.println("how many nodes would you like ?");
         // System.out.println("making " + keyboard.nextInt() + " nodes");
@@ -63,5 +96,3 @@ public class UseNode {
 
     }
 }
-
-
