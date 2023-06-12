@@ -41,7 +41,7 @@ public class UseNode {
         nodeC.addLink(new Link(nodeD, 2));
 
         nodeD.addLink(new Link(nodeE, 1));
-        nodeD.addLink(new Link(nodeF, 4));
+        nodeD.addLink(new Link(nodeF, 2));
 
         nodeE.addLink(new Link(nodeF, 2));
 
@@ -51,22 +51,36 @@ public class UseNode {
         while (true) {
 
             // Print the current node
-            System.out.println(
-                    "Current node: " + currentNode.getName() + " Total distance: " + currentNode.getDistance());
+            //System.out.println(
+                   // "Current node: " + currentNode.getName() + " Total distance: " + currentNode.getDistance());
 
             for (Link link : currentNode.getLinks()) {
                 Node nextNode = link.getEnd();
+                System.out.println("current node is: " + currentNode);
+                System.out.println("testing link to: " + nextNode);
                 int distance = currentNode.getDistance() + link.getWeight();
+                System.out.println("total distance is: " + distance);
                 if (distance < nextNode.getDistance()) {
                     nextNode.setDistance(distance);
                 }
+                System.out.println("updating distance from: " + currentNode + " to " + nextNode + " from infinity to: " + //nextNode.getDistance()
+                //nextNode.getDistance is the distance set from A to C, so comes out as 4 when it should be coming out as 3. this could be
+                //good for testing the long term shortest path stuff? 
+                );
 
                 // Set the closest node as the next starting node
                 if (nextStartingNode == null || nextNode.getDistance() < nextStartingNode.getDistance()) {
                     nextStartingNode = nextNode;
+                    System.out.println("this was the shortest link distance so far, updating shortest path to be from " + currentNode + " to " + nextStartingNode);
+                }else{
+                    System.out.println("this distance, " + nextNode.getDistance() + " was not shorter than the current shortest distance, " + nextStartingNode.getDistance() + " which was from " + nextStartingNode);
+
                 }
             }
+        
 
+            System.out.println("have gone through all links from " + currentNode);
+            System.out.println("shortest link path was from " + currentNode + " to " + nextStartingNode);
             currentNode = nextStartingNode;
             nextStartingNode = null;
 
