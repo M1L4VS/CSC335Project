@@ -41,7 +41,7 @@
        return _name;
     }
 
-    public void setPrevNode(String prevNode){
+    /* public void setPrevNode(String prevNode){
       _prevNode = prevNode;
     }
 
@@ -50,6 +50,6 @@
     }
 
     public int getPreviousNode(){
-         
-    }
+
+    } */
  }

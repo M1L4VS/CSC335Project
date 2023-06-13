@@ -49,11 +49,9 @@ public class UseNode {
         Node currentNode = nodeA;
         Node prevNode = null; 
         Node nextStartingNode = null;
-        while (true) {
+        boolean running = true; 
 
-            // Print the current node
-            //System.out.println(
-                   // "Current node: " + currentNode.getName() + " Total distance: " + currentNode.getDistance());
+        while (running) { 
 
             for (Link link : currentNode.getLinks()) {
                 Node nextNode = link.getEnd();
@@ -63,19 +61,18 @@ public class UseNode {
                 System.out.println("total distance is: " + distance);
                 if (distance < nextNode.getDistance()) {
                     nextNode.setDistance(distance);
-                    //prevNode = currentNode; 
+                    System.out.println("previous node is: " + prevNode);
                     System.out.println("updating shortest total distance to: "  + nextNode + " to: " + nextNode.getDistance());
                 }else{
-                    System.out.println("distance from " + currentNode + " to " + nextNode + " was not shorter than the shortest distance to " + nextNode + " which was " + nextNode.getDistance() + ", from " + currentNode.getPrevNode());
-                    //not right; make seperate method to get starting point node?
-                    //if currentNode is A then prevNode will be null 
-                    //is prev node necessary?
+                    System.out.println("distance from " + currentNode + " to " + nextNode + " was not shorter than the shortest distance to " + nextNode + " which was " + nextNode.getDistance() + ", from " + prevNode);
+                    
                 }
 
                 // Set the closest node as the next starting node
                 if (nextStartingNode == null || nextNode.getDistance() < nextStartingNode.getDistance()) {
                     nextStartingNode = nextNode;
-                    System.out.println("this was the shortest distance so far, updating shortest path to be from " + currentNode + " to " + nextStartingNode);
+                    System.out.println("this was the shortest distance so far, updating shortest path to be from node A through nodes " + "*previous node path* " + " to " + nextStartingNode);
+                    //should shortest path be referencing from nodeA? so start to current end? avoid hard coding though? 
                 }else{
                     System.out.println("this distance, " + nextNode.getDistance() + " was not shorter than the current shortest distance, " + nextStartingNode.getDistance() + " which was to " + nextStartingNode);
 
@@ -84,14 +81,17 @@ public class UseNode {
         
 
             System.out.println("have gone through all links from " + currentNode);
-            System.out.println("shortest link path was from " + currentNode + " to " + nextStartingNode);
+            if(currentNode != nodeF){ //avoid this hardcoded nodeF stuff
+                System.out.println("shortest link path was from " + currentNode + " to " + nextStartingNode);
+            }
+            prevNode = currentNode; 
             currentNode = nextStartingNode;
             nextStartingNode = null;
 
             // If there are no more nodes to visit, break out of the loop
             if (currentNode == null) {
                 System.out.println("No more nodes to visit");
-                break;
+                running = false; 
             }
         }
 
