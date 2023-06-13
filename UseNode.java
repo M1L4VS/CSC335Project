@@ -2,7 +2,7 @@
  * Write a description of class UseNode here.
  * Use node class
  * @author Mila van Stokkum
- * @version v3 26/05/2023
+ * @version v4 13/06/2023
  */
 import java.util.Scanner;
 import javax.swing.*;
@@ -31,22 +31,23 @@ public class UseNode {
         Node nodeF = new Node("F");
 
         nodeA.setDistance(0);
-        nodeA.addLink(new Link(nodeB, 2));
-        nodeA.addLink(new Link(nodeC, 4));
+        nodeA.addLink(new Link(nodeA, nodeB, 2));
+        nodeA.addLink(new Link(nodeA, nodeC, 4));
 
-        nodeB.addLink(new Link(nodeC, 3));
-        nodeB.addLink(new Link(nodeD, 1));
-        nodeB.addLink(new Link(nodeE, 5));
+        nodeB.addLink(new Link(nodeB, nodeC, 3));
+        nodeB.addLink(new Link(nodeB, nodeD, 1));
+        nodeB.addLink(new Link(nodeB, nodeE, 5));
 
-        nodeC.addLink(new Link(nodeD, 2));
+        nodeC.addLink(new Link(nodeC, nodeD, 2));
 
-        nodeD.addLink(new Link(nodeE, 1));
-        nodeD.addLink(new Link(nodeF, 2));
+        nodeD.addLink(new Link(nodeD, nodeE, 1));
+        nodeD.addLink(new Link(nodeD, nodeF, 2));
 
-        nodeE.addLink(new Link(nodeF, 2));
+        nodeE.addLink(new Link(nodeE, nodeF, 2));
 
         // Start at node A
         Node currentNode = nodeA;
+        Node prevNode = null; 
         Node nextStartingNode = null;
         while (true) {
 
@@ -62,18 +63,21 @@ public class UseNode {
                 System.out.println("total distance is: " + distance);
                 if (distance < nextNode.getDistance()) {
                     nextNode.setDistance(distance);
+                    //prevNode = currentNode; 
+                    System.out.println("updating shortest total distance to: "  + nextNode + " to: " + nextNode.getDistance());
+                }else{
+                    System.out.println("distance from " + currentNode + " to " + nextNode + " was not shorter than the shortest distance to " + nextNode + " which was " + nextNode.getDistance() + ", from " + currentNode.getPrevNode());
+                    //not right; make seperate method to get starting point node?
+                    //if currentNode is A then prevNode will be null 
+                    //is prev node necessary?
                 }
-                System.out.println("updating distance from: " + currentNode + " to " + nextNode + " from infinity to: " + //nextNode.getDistance()
-                //nextNode.getDistance is the distance set from A to C, so comes out as 4 when it should be coming out as 3. this could be
-                //good for testing the long term shortest path stuff? 
-                );
 
                 // Set the closest node as the next starting node
                 if (nextStartingNode == null || nextNode.getDistance() < nextStartingNode.getDistance()) {
                     nextStartingNode = nextNode;
-                    System.out.println("this was the shortest link distance so far, updating shortest path to be from " + currentNode + " to " + nextStartingNode);
+                    System.out.println("this was the shortest distance so far, updating shortest path to be from " + currentNode + " to " + nextStartingNode);
                 }else{
-                    System.out.println("this distance, " + nextNode.getDistance() + " was not shorter than the current shortest distance, " + nextStartingNode.getDistance() + " which was from " + nextStartingNode);
+                    System.out.println("this distance, " + nextNode.getDistance() + " was not shorter than the current shortest distance, " + nextStartingNode.getDistance() + " which was to " + nextStartingNode);
 
                 }
             }
