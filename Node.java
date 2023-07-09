@@ -1,18 +1,18 @@
 /**
  * Write a description of class Node here.
- * Node class
+ * Use node class
  * @author Mila van Stokkum
- * @version v4 13/06/2023 -
+ * @version v5 09/07/2023
  */
 
  import java.util.ArrayList;
 
  public class Node {
     private String _name;
-    private String _prevNode;
+    private Node _prevNode;
     private int _distanceFromStart = Integer.MAX_VALUE;
     private ArrayList<Link> _adjacentLinks = new ArrayList<Link>();
- 
+
     public Node(String newName) {
        _name = newName;
     }
@@ -40,16 +40,13 @@
     public String toString() {
        return _name;
     }
-
-    /* public void setPrevNode(String prevNode){
+    
+    public void setPrevNode(Node prevNode){
       _prevNode = prevNode;
     }
 
-    public String getPrevNode(){
+    public Node getPrevNode(){
       return _prevNode;
     }
-
-    public int getPreviousNode(){
-
-    } */
+    
  }

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "CSC335Project_c732f96f"
+        },
+        {
+            "type": "java",
             "name": "UseNode",
             "request": "launch",
             "mainClass": "UseNode",
