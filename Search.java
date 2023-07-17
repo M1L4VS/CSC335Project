@@ -21,6 +21,9 @@ public class Search {
 
         int startToEndDistance = 0;
 
+        //initialise GUI window 
+        new GUI(); 
+
         while(queue.size() > 0){
 
             //Get the first node in the queue
@@ -70,7 +73,7 @@ public class Search {
             currentNode = currentNode.getPrevNode();
         }
 
-        //Print shortest path
+        //Print out shortest path
         System.out.print("Shortest path is: ");
         for(Node node : map.shortestPath){
             System.out.print(node.getName());
