@@ -42,29 +42,30 @@ public class Map {
         nodes.add(nodeH);
 
         // Add links
-        nodeA.addLink(new Link(nodeA, nodeB, 2));
-        nodeA.addLink(new Link(nodeA, nodeC, 3));
-        nodeA.addLink(new Link(nodeA, nodeD, 7));
+        nodeA.addLink(new Link(nodeA, nodeB, 1));
+        nodeA.addLink(new Link(nodeA, nodeC, 1));
+        nodeA.addLink(new Link(nodeA, nodeD, 1));
 
         nodeB.addLink(new Link(nodeB, nodeD, 1));
-        nodeB.addLink(new Link(nodeB, nodeF, 11));
+        nodeB.addLink(new Link(nodeB, nodeF, 1));
 
-        nodeC.addLink(new Link(nodeC, nodeD, 2));
+        nodeC.addLink(new Link(nodeC, nodeD, 1));
 
-        nodeD.addLink(new Link(nodeD, nodeE, 5));
-        nodeD.addLink(new Link(nodeD, nodeF, 9));
+        nodeD.addLink(new Link(nodeD, nodeE, 1));
+        nodeD.addLink(new Link(nodeD, nodeF, 1));
 
-        nodeE.addLink(new Link(nodeE, nodeF, 2));
-        nodeE.addLink(new Link(nodeE, nodeG, 6));
-        nodeE.addLink(new Link(nodeE, nodeH, 3));
+        nodeE.addLink(new Link(nodeE, nodeF, 1));
+        nodeE.addLink(new Link(nodeE, nodeG, 1));
+        nodeE.addLink(new Link(nodeE, nodeH, 1));
 
         nodeF.addLink(new Link(nodeF, nodeG, 1));
 
-        nodeG.addLink(new Link(nodeG, nodeH, 8));
+        nodeG.addLink(new Link(nodeG, nodeH, 1));
 
         // set start and end nodes
         startNode = nodeA;
         endNode = nodeH;
     }
+
 
 }

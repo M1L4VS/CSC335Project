@@ -19,6 +19,8 @@ public class GUI extends JFrame implements ActionListener
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
+    JTextArea textDisplay;
+
 
     //Graphics variables
     int nodeWidth = 15; 
@@ -66,6 +68,11 @@ public class GUI extends JFrame implements ActionListener
 
         menu = new JMenu("Nodes & Links");
         menuBar.add(menu);
+
+        // textDisplay = new JTextArea();
+        // this.add(textDisplay, accessibleContext, 50);
+        // textDisplay.append("hello");
+
         this.pack();
 
         //adding items
@@ -155,18 +162,10 @@ public class GUI extends JFrame implements ActionListener
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
 
-    //    g2.setColor(Color.PINK);
-    //    g2.drawString("node", 100, 100);
-    //    g2.setColor(Color.MAGENTA);
-    //    g2.drawOval(200, 200, 50, 50);
-    //    g2.fillOval(200, 200, 50, 50);
-    //    g2.setColor(Color.CYAN);
-    //    Line2D line = new Line2D.Float(150, 150, 250, 250);
-    //    g2.draw(line);
-
         for(Node node : map.nodes){
             int x = node.getXCo();
             int y = node.getYCo();
+            int textOffset = 5; 
 
             for(Link link : node.getLinks()){
                 Node endNode = link.getEnd();
@@ -193,6 +192,7 @@ public class GUI extends JFrame implements ActionListener
            
             g2.setColor(Color.BLACK);
             g2.drawOval(x, y, nodeWidth, nodeWidth);
+            g2.drawString(node.getName(), x - textOffset, y - textOffset);
             g2.setColor(nodeColor);
             g2.fillOval(x, y, nodeWidth, nodeWidth);
 
@@ -204,5 +204,7 @@ public class GUI extends JFrame implements ActionListener
         this.map = map; 
         this.repaint();
     }
+
+
 
 }

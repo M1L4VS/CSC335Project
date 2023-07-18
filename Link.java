@@ -14,7 +14,8 @@ public class Link{
     public Link(Node start, Node end, int weight) {
         _start = start;
         _end = end;
-        _weight = weight;
+        int length = calculateLength(start, end);
+        _weight = weight * length;
     }
 
     public Node getStart(){
@@ -27,5 +28,10 @@ public class Link{
 
     public int getWeight(){
         return _weight;
+    }
+
+    private int calculateLength(Node startNode, Node endNode){
+        double length = (Math.sqrt((endNode.getXCo() - startNode.getXCo())^2 + (endNode.getYCo() - startNode.getYCo())^2));
+        return (int)length; 
     }
 }
