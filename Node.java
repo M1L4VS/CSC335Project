@@ -15,8 +15,10 @@
     private int _distanceFromStart = Integer.MAX_VALUE;
     private ArrayList<Link> _adjacentLinks = new ArrayList<Link>();
 
-    public Node(String newName) {
+    public Node(String newName, int xCo, int yCo) {
        _name = newName;
+       _xCo = xCo;
+       _yCo = yCo;  
     }
  
     public String getName() {
@@ -51,20 +53,10 @@
       return _prevNode;
     }
 
-   //assign coordinates to all nodes 
-
-    public void setXCo(int xCo){
-         _xCo = xCo; 
-    }
-
     public int getXCo(){
       return _xCo; 
     }
-
-    public void setYCo(int yCo){
-         _yCo = yCo; 
-    }
-
+    
     public int getYCo(){
       return _yCo; 
     }

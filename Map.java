@@ -24,23 +24,21 @@ public class Map {
 
         // Create map and fill with nodes and links
 
-        Node nodeA = new Node("A");
-        nodeA.setXCo(35); //must be a more efficient way to set coordinates?
-        nodeA.setYCo(45);
+        Node nodeA = new Node("A", 15, 50);
         nodes.add(nodeA);
-        Node nodeB = new Node("B");
+        Node nodeB = new Node("B", 35, 45);
         nodes.add(nodeB);
-        Node nodeC = new Node("C");
+        Node nodeC = new Node("C", 35, 75);
         nodes.add(nodeC);
-        Node nodeD = new Node("D");
+        Node nodeD = new Node("D", 55, 50);
         nodes.add(nodeD);
-        Node nodeE = new Node("E");
+        Node nodeE = new Node("E", 65, 60);
         nodes.add(nodeE);
-        Node nodeF = new Node("F");
+        Node nodeF = new Node("F", 85, 35);
         nodes.add(nodeF);
-        Node nodeG = new Node("G");
+        Node nodeG = new Node("G", 100, 75);
         nodes.add(nodeG);
-        Node nodeH = new Node("H");
+        Node nodeH = new Node("H", 120, 50);
         nodes.add(nodeH);
 
         // Add links

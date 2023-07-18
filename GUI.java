@@ -21,8 +21,10 @@ public class GUI extends JFrame implements ActionListener
     JMenuItem menuItem;
 
     //Graphics variables
-    int nodeWidth = 20; 
+    int nodeWidth = 15; 
     int linkLength = 30; 
+
+    Map map;
 
     public GUI() {
 
@@ -153,17 +155,27 @@ public class GUI extends JFrame implements ActionListener
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        //g2. setColor(Color.COLOR), fillOval, drawOval, drawString, Line2D lin = new Line2D.Float(Xstart, YStart, XEnd, YEnd)--> draw(lin)
+    //    g2.setColor(Color.PINK);
+    //    g2.drawString("node", 100, 100);
+    //    g2.setColor(Color.MAGENTA);
+    //    g2.drawOval(200, 200, 50, 50);
+    //    g2.fillOval(200, 200, 50, 50);
+    //    g2.setColor(Color.CYAN);
+    //    Line2D line = new Line2D.Float(150, 150, 250, 250);
+    //    g2.draw(line);
 
-       g2.setColor(Color.PINK);
-       g2.drawString("node", 100, 100);
-       g2.setColor(Color.MAGENTA);
-       g2.drawOval(200, 200, 50, 50);
-       g2.fillOval(200, 200, 50, 50);
-       g2.setColor(Color.CYAN);
-       Line2D line = new Line2D.Float(150, 150, 250, 250);
-       g2.draw(line);
+        for(Node node : map.nodes){
+            g2.setColor(Color.RED);
+            g2.drawOval(node.getXCo() + 50, node.getYCo() + 100, nodeWidth, nodeWidth);
+            g2.setColor(Color.GREEN);
+            g2.fillOval(node.getXCo() + 50, node.getYCo() + 100, nodeWidth, nodeWidth);
 
+        }
+
+    }
+
+    public void setMap(Map map){
+        this.map = map; 
     }
 
 }
