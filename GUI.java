@@ -172,25 +172,37 @@ public class GUI extends JFrame implements ActionListener
                 Node endNode = link.getEnd();
                 int eX = endNode.getXCo(); 
                 int eY = endNode.getYCo();
+                Color linkColor = Color.MAGENTA;
 
-                g2.setColor(Color.MAGENTA);
+                if(map.shortestPath.contains(node) && map.shortestPath.contains(endNode)){
+                    linkColor = Color.GREEN; 
+                }
+
+                g2.setColor(linkColor);
                 Line2D line = new Line2D.Float(x, y, eX, eY);
                 g2.draw(line);
             }
 
-            g2.setColor(Color.RED);
+            Color nodeColor = Color.RED;
+
+            if(node == map.startNode || node == map.endNode){
+                nodeColor = Color.GREEN; 
+            } else if(map.shortestPath.contains(node)){
+                nodeColor = Color.BLUE;
+            }
+           
+            g2.setColor(Color.BLACK);
             g2.drawOval(x, y, nodeWidth, nodeWidth);
-            g2.setColor(Color.GREEN);
+            g2.setColor(nodeColor);
             g2.fillOval(x, y, nodeWidth, nodeWidth);
 
-            
         }
 
     }
 
     public void setMap(Map map){
         this.map = map; 
-        this.invalidate();
+        this.repaint();
     }
 
 }
