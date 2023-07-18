@@ -9,6 +9,10 @@
 
     public static void main(String[] args){
 
+        //Initialise GUI window 
+        GUI gui = new GUI(); 
+        gui.setVisible(true);
+
         //Initialise map and create nodes & links
         Map map = new Map();
         map.useDefaultMap();

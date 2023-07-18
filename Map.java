@@ -25,6 +25,8 @@ public class Map {
         // Create map and fill with nodes and links
 
         Node nodeA = new Node("A");
+        nodeA.setXCo(35); //must be a more efficient way to set coordinates?
+        nodeA.setYCo(45);
         nodes.add(nodeA);
         Node nodeB = new Node("B");
         nodes.add(nodeB);
@@ -61,6 +63,7 @@ public class Map {
         nodeF.addLink(new Link(nodeF, nodeG, 1));
 
         nodeG.addLink(new Link(nodeG, nodeH, 8));
+
         // set start and end nodes
         startNode = nodeA;
         endNode = nodeH;

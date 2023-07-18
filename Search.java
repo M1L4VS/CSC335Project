@@ -21,9 +21,6 @@ public class Search {
 
         int startToEndDistance = 0;
 
-        //initialise GUI window 
-        new GUI(); 
-
         while(queue.size() > 0){
 
             //Get the first node in the queue

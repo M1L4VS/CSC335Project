@@ -1,9 +1,10 @@
 /**
  * Write a description of class GUI here.
- * GUI lines and circles
+ * GUI class
  * @author Mila van Stokkum
- * @version v1 17/07/23
+ * @version v2 18/07/2023 
  */
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Scanner;
@@ -24,17 +25,15 @@ public class GUI extends JFrame implements ActionListener
     int linkLength = 30; 
 
     public GUI() {
-        
+
         //get GUI window info
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("What title would you like?");
-        String title = keyboard.nextLine();
-        setTitle(title);
-        //System.out.println("What x dimension would you like?");
+       
+        setTitle("Dijkstra's Algorithm Simulation");
+
         int xDim = 500;
-        //System.out.println("What y dimension would you like?");
+       
         int yDim = 500;
-                
+
         //shortcuts guide
         System.out.println("Click on menus to view shortcuts");
 
@@ -76,7 +75,7 @@ public class GUI extends JFrame implements ActionListener
         menuItem.setAccelerator(KeyStroke.getKeyStroke('l'));
         menuItem.addActionListener(this);
         menu.add(menuItem);
-         menuItem = new JMenuItem("Remove node"); //am i coding ability to remove???
+        menuItem = new JMenuItem("Remove node"); //am i coding ability to remove???
         menuItem.setAccelerator(KeyStroke.getKeyStroke('o'));
         menuItem.addActionListener(this);
         menu.add(menuItem);
@@ -101,8 +100,8 @@ public class GUI extends JFrame implements ActionListener
 
         this.pack();
 
-        keyboard.close();
-        
+     
+
     }
 
     public void makeDialogBox(String boxString){
@@ -116,13 +115,12 @@ public class GUI extends JFrame implements ActionListener
         box.setTitle("Pop up");
     }
 
-    
+
     public void actionPerformed(ActionEvent e)
     {
         String cmd = e.getActionCommand();
-        
-        Scanner keyboard = new Scanner(System.in); 
-        
+
+
         switch(cmd){
             case "Random map" : System.out.println("Using random map");
                 makeDialogBox("Random map generated");
@@ -149,20 +147,23 @@ public class GUI extends JFrame implements ActionListener
                 makeDialogBox("exiting Dijkstra's algorithm");
                 break;
         }
-        keyboard.close();
+        
     }
     public void paint (Graphics g){
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
-        
-        //g2. setColor(Color.COLOR), fillOval, drawOval, drawString, Line 2D lin = new Line2D.Float(Xstart, YStart, XEnd, YEnd)--> draw(lin)
+
+        //g2. setColor(Color.COLOR), fillOval, drawOval, drawString, Line2D lin = new Line2D.Float(Xstart, YStart, XEnd, YEnd)--> draw(lin)
 
        g2.setColor(Color.PINK);
        g2.drawString("node", 100, 100);
        g2.setColor(Color.MAGENTA);
        g2.drawOval(200, 200, 50, 50);
        g2.fillOval(200, 200, 50, 50);
+       g2.setColor(Color.CYAN);
+       Line2D line = new Line2D.Float(150, 150, 250, 250);
+       g2.draw(line);
 
     }
-    
+
 }
