@@ -24,21 +24,21 @@ public class Map {
 
         // Create map and fill with nodes and links
 
-        Node nodeA = new Node("A", 15, 50);
+        Node nodeA = new Node("A",  50, 80);
         nodes.add(nodeA);
-        Node nodeB = new Node("B", 35, 45);
+        Node nodeB = new Node("B", 100, 120);
         nodes.add(nodeB);
-        Node nodeC = new Node("C", 35, 75);
+        Node nodeC = new Node("C", 150, 130);
         nodes.add(nodeC);
-        Node nodeD = new Node("D", 55, 50);
+        Node nodeD = new Node("D", 140, 70);
         nodes.add(nodeD);
-        Node nodeE = new Node("E", 65, 60);
+        Node nodeE = new Node("E", 200, 100);
         nodes.add(nodeE);
-        Node nodeF = new Node("F", 85, 35);
+        Node nodeF = new Node("F", 250, 200);
         nodes.add(nodeF);
-        Node nodeG = new Node("G", 100, 75);
+        Node nodeG = new Node("G", 300, 120);
         nodes.add(nodeG);
-        Node nodeH = new Node("H", 120, 50);
+        Node nodeH = new Node("H", 400, 300);
         nodes.add(nodeH);
 
         // Add links
