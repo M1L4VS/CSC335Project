@@ -3,7 +3,7 @@
  * Write a description of class Map here.
  * Use node class
  * @author Mila van Stokkum
- * @version v5 09/07/2023
+ * @version v6 20/07/2023
  */
 
 import java.util.ArrayList;
@@ -70,6 +70,43 @@ public class Map {
         endNode = nodeH;
     }
 
+public void useRandomMap(){
+    double numberOfNodes = Math.random()*100;
+    numberOfNodes = (int)numberOfNodes;
+    double numberOfLinks = Math.random()*5;
+    numberOfLinks = (int)numberOfLinks;
+
+    for (int i = 0; i < numberOfNodes; i++){
+        int nodeName = 1; 
+        int nextNodeName = 1; 
+        String nodeNameString = Integer.toString(nodeName); 
+        String nextNodeNameString = Integer.toString(nextNodeName);
+        double x = Math.random()*500;
+        x = (int)x; //does this turn them to ints?
+        double y = Math.random()*500;
+        y = (int)y;
+
+        double xnn = Math.random()*500;
+        xnn = (int)xnn; //does this turn them to ints?
+        double ynn = Math.random()*500;
+        ynn = (int)ynn;
+
+        Node node = new Node(nodeNameString, x, y);
+        Node nextNode = new Node(nextNodeNameString, xnn, ynn)
+        nodes.add(node);
+        nodeName++; 
+
+        //should this be inside or outside? need nodes list to pick random ones from to make random links? 
+        for (int j = 0; j < numberOfLinks; j++){
+            double linkWeight = Math.random()*10;
+            linkWeight = (int)linkWeight;
+            node.addLink(new Link(node, nextNode, linkWeight));
+        }
+    }
+
+}
+
+
 //     public void useCSVMap(){
 //         final String CSVMAPFILE = "node.csv";
 //         final int MAXLINES = 100; //change to be number of max nodes etc 
@@ -99,7 +136,5 @@ public class Map {
 
 //         }catch (IOException e) {System.out.println(e);}
 //     }
-
-
 
 }
