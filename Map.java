@@ -7,9 +7,10 @@
  */
 
 import java.util.ArrayList;
-import java.util.Scanner; 
+import java.util.Scanner;
+import java.util.TreeMap;
 import java.io.IOException;
-import java.io.File; 
+import java.io.File;
 
 public class Map {
 
@@ -27,7 +28,7 @@ public class Map {
 
         // Create map and fill with nodes and links
 
-        Node nodeA = new Node("A",  50, 80);
+        Node nodeA = new Node("A", 50, 80);
         nodes.add(nodeA);
         Node nodeB = new Node("B", 100, 120);
         nodes.add(nodeB);
@@ -70,71 +71,87 @@ public class Map {
         endNode = nodeH;
     }
 
-public void useRandomMap(){
-    double numberOfNodes = Math.random()*100;
-    numberOfNodes = (int)numberOfNodes;
-    double numberOfLinks = Math.random()*5;
-    numberOfLinks = (int)numberOfLinks;
-
-    for (int i = 0; i < numberOfNodes; i++){
-        int nodeName = 1; 
-        int nextNodeName = 1; 
-        String nodeNameString = Integer.toString(nodeName); 
-        String nextNodeNameString = Integer.toString(nextNodeName);
-        double x = Math.random()*500;
-        x = (int)x; //does this turn them to ints?
-        double y = Math.random()*500;
-        y = (int)y;
-
-        double xnn = Math.random()*500;
-        xnn = (int)xnn; //does this turn them to ints?
-        double ynn = Math.random()*500;
-        ynn = (int)ynn;
-
-        Node node = new Node(nodeNameString, x, y);
-        Node nextNode = new Node(nextNodeNameString, xnn, ynn)
-        nodes.add(node);
-        nodeName++; 
-
-        //should this be inside or outside? need nodes list to pick random ones from to make random links? 
-        for (int j = 0; j < numberOfLinks; j++){
-            double linkWeight = Math.random()*10;
-            linkWeight = (int)linkWeight;
-            node.addLink(new Link(node, nextNode, linkWeight));
-        }
+    private int calculateLength(Node startNode, Node endNode) {
+        double xDif = endNode.getXCo() - startNode.getXCo();
+        double yDif = endNode.getYCo() - startNode.getYCo();
+        double length = (Math.sqrt((xDif*xDif) + (yDif*yDif))); 
+        return (int) length;
     }
 
-}
+    public void useRandomMap() {
+        int numberOfNodes = (int) (Math.random() * 100);
+        int numberOfLinks = 3; // random # between 1 and 3 as 0 links is impossible
 
+        for (int i = 0; i < numberOfNodes; i++) {
+            String nodeNameString = Integer.toString(i);
+            int x = (int) (Math.random() * 500);
+            int y = (int) (Math.random() * 500);
 
-//     public void useCSVMap(){
-//         final String CSVMAPFILE = "node.csv";
-//         final int MAXLINES = 100; //change to be number of max nodes etc 
-//         final int VALUESPERLINE = 3; //see if can change? 
-       
-//         File csvMapFile = new File(CSVMAPFILE);
-//         String CSVLines[] = new String[MAXLINES];
-//         String allValues[][] = new String[MAXLINES][VALUESPERLINE];
-//         int lineCount = 0; 
+            // int xnn = (int)Math.random()*500;
+            // int ynn = (int)Math.random()*500;
 
-//         try {
-//             Scanner fileReader = new Scanner(csvMapFile);
+            Node node = new Node(nodeNameString, x, y);
+            // Node nextNode = new Node(nextNodeNameString, xnn, ynn);
+            nodes.add(node);
+        }
 
-//             while (fileReader.hasNextLine() && lineCount < MAXLINES){
-//                 String line = fileReader.nextLine();
-//                 CSVLines[lineCount] = line; 
-//                 lineCount++; 
-//             }
+        for (Node nodeStart : nodes) {
+            TreeMap<Integer, Node> closestNodes = new TreeMap<Integer, Node>();
 
-//             for(int i = 0; i < lineCount ; i++){
-//                 String values[] = CSVLines[i].split(",");
+            for (Node nodeEnd : nodes) {
+                if (nodeStart == nodeEnd) {
+                    continue;
+                }
+                // calculate distance between the start and end nodes to find the nearest 3
+                // nodes
+                int distance = calculateLength(nodeStart, nodeEnd);
+                closestNodes.put(distance, nodeEnd);
+            }
 
-//                 for(int j = 0; j < values.length; j++){
-//                     System.out.println(values[j]);
-//                 }
-//             }
+            int linkCount = 0;
+            for (Integer key : closestNodes.keySet()) {
+                if (linkCount > numberOfLinks) {
+                    break;
+                }
+                Node node = closestNodes.get(key);
+                nodeStart.addLink(new Link(nodeStart, node, 1));
+                linkCount++;
+            }
 
-//         }catch (IOException e) {System.out.println(e);}
-//     }
+        }
+
+    }
+
+    public void useCSVMap() {
+        final String CSVMAPFILE = "node.csv";
+        final int MAXLINES = 100; // change to be number of max nodes etc
+        final int VALUESPERLINE = 3; // see if can change?
+
+        File csvMapFile = new File(CSVMAPFILE);
+        String CSVLines[] = new String[MAXLINES];
+        String allValues[][] = new String[MAXLINES][VALUESPERLINE];
+        int lineCount = 0;
+
+        try {
+            Scanner fileReader = new Scanner(csvMapFile);
+
+            while (fileReader.hasNextLine() && lineCount < MAXLINES) {
+                String line = fileReader.nextLine();
+                CSVLines[lineCount] = line;
+                lineCount++;
+            }
+
+            for (int i = 0; i < lineCount; i++) {
+                String values[] = CSVLines[i].split(",");
+
+                for (int j = 0; j < values.length; j++) {
+                    System.out.println(values[j]);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 
 }

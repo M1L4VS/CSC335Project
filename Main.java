@@ -15,7 +15,7 @@
 
         //Initialise map and create nodes & links
         Map map = new Map();
-        map.useDefaultMap();
+        map.useRandomMap();
         gui.setMap(map);
 
         //Create the search object, and run it on the map
