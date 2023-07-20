@@ -18,6 +18,7 @@ public class Map {
     public Node startNode;
     public Node endNode;
     public ArrayList<Node> shortestPath;
+    public final int NODESDIM = 700;
 
     public Map() {
         nodes = new ArrayList<Node>();
@@ -25,6 +26,8 @@ public class Map {
     }
 
     public void useDefaultMap() {
+
+        nodes.clear();
 
         // Create map and fill with nodes and links
 
@@ -74,18 +77,19 @@ public class Map {
     private int calculateLength(Node startNode, Node endNode) {
         double xDif = endNode.getXCo() - startNode.getXCo();
         double yDif = endNode.getYCo() - startNode.getYCo();
-        double length = (Math.sqrt((xDif*xDif) + (yDif*yDif))); 
+        double length = (Math.sqrt((xDif * xDif) + (yDif * yDif)));
         return (int) length;
     }
 
     public void useRandomMap() {
-        int numberOfNodes = (int) (Math.random() * 100);
-        int numberOfLinks = 3; // random # between 1 and 3 as 0 links is impossible
+        nodes.clear();
+        int numberOfNodes = (int) ((Math.random() * 300) + 100);
+        int numberOfLinks = 3; // random # between 1 and 3 
 
         for (int i = 0; i < numberOfNodes; i++) {
             String nodeNameString = Integer.toString(i);
-            int x = (int) (Math.random() * 500);
-            int y = (int) (Math.random() * 500);
+            int x = (int) (Math.random() * NODESDIM);
+            int y = (int) (Math.random() * NODESDIM);
 
             // int xnn = (int)Math.random()*500;
             // int ynn = (int)Math.random()*500;
@@ -93,6 +97,13 @@ public class Map {
             Node node = new Node(nodeNameString, x, y);
             // Node nextNode = new Node(nextNodeNameString, xnn, ynn);
             nodes.add(node);
+
+            if (i == 0){
+                this.startNode = node;
+            }
+            if (i == numberOfNodes - 1){
+                this.endNode = node;
+            }
         }
 
         for (Node nodeStart : nodes) {

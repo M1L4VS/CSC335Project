@@ -15,28 +15,25 @@ import java.awt.geom.*;
 
 public class GUI extends JFrame implements ActionListener
 {
+    Search search = new Search();
+    
     //class variables
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
-    JTextArea textDisplay;
-
-
-    //Graphics variables
-    int nodeWidth = 15; 
-    int linkLength = 30; 
+    JTextArea jTextArea;
+    JPanel jPanel;
+    MapUI mapUI;
+    public final int NODESDIM = 700;
 
     Map map;
 
-    public GUI() {
-
+    public GUI()  {
         //get GUI window info
        
         setTitle("Dijkstra's Algorithm Simulation");
-
-        int xDim = 500;
-       
-        int yDim = 500;
+        int xDim = 800;
+        int yDim = 800;
 
         //shortcuts guide
         System.out.println("Click on menus to view shortcuts");
@@ -51,7 +48,6 @@ public class GUI extends JFrame implements ActionListener
         this.setJMenuBar(menuBar);
         menu = new JMenu("Maps");
         menuBar.add(menu);
-        this.pack();
 
         //adding items
         menuItem = new JMenuItem("Random map");
@@ -66,36 +62,8 @@ public class GUI extends JFrame implements ActionListener
 
         //ADD CSV IMPORT OPTION HERE? 
 
-        menu = new JMenu("Nodes & Links");
-        menuBar.add(menu);
-
-        // textDisplay = new JTextArea();
-        // this.add(textDisplay, accessibleContext, 50);
-        // textDisplay.append("hello");
-
-        this.pack();
-
-        //adding items
-        menuItem = new JMenuItem("Add node");
-        menuItem.setAccelerator(KeyStroke.getKeyStroke('n'));
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-        menuItem = new JMenuItem("Add link");
-        menuItem.setAccelerator(KeyStroke.getKeyStroke('l'));
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-        menuItem = new JMenuItem("Remove node"); //am i coding ability to remove???
-        menuItem.setAccelerator(KeyStroke.getKeyStroke('o'));
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-        menuItem = new JMenuItem("Remove link"); //likewise
-        menuItem.setAccelerator(KeyStroke.getKeyStroke('p'));
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-
         menu = new JMenu("Menu");
         menuBar.add(menu);
-        this.pack();
 
         menuItem = new JMenuItem("Instructions");
         menuItem.setAccelerator(KeyStroke.getKeyStroke('i'));
@@ -107,10 +75,22 @@ public class GUI extends JFrame implements ActionListener
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        this.pack();
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        c.fill = GridBagConstraints.BOTH;
 
-     
+        jPanel = new JPanel(new GridBagLayout());
+        add(jPanel);
+        jPanel.setBackground(Color.BLUE);
 
+        mapUI = new MapUI();
+        mapUI.setPreferredSize(new Dimension(NODESDIM, NODESDIM));
+        jPanel.add(mapUI, c);
+
+        jTextArea = new JTextArea(10, 20);
+        //jPanel.add(jTextArea, c);
+
+        this.pack();   
     }
 
     public void makeDialogBox(String boxString){
@@ -132,22 +112,16 @@ public class GUI extends JFrame implements ActionListener
 
         switch(cmd){
             case "Random map" : System.out.println("Using random map");
-                makeDialogBox("Random map generated");
+                //makeDialogBox("Random map generated");
+                map.useRandomMap();
+                search.DijkstraSearch(map);
+                repaint();
                 break;
             case "Built in map" : System.out.println("Using built in map");
-                makeDialogBox("Built in map generated");
-                break;
-            case "Add node" : System.out.println("Adding a node");
-                makeDialogBox("Node added");
-                break;
-            case "Add link" : System.out.println("Adding a link");
-                makeDialogBox("Link added");
-                break;
-            case "Remove node" : System.out.println("Removing a node");
-                makeDialogBox("Node removed");
-                break;
-            case "Remove link" : System.out.println("Removing a link");
-                makeDialogBox("Link removed");
+                //makeDialogBox("Built in map generated");
+                map.useDefaultMap();
+                search.DijkstraSearch(map);
+                repaint();
                 break;
             case "Instructions" : System.out.println("Click enter to run Dijkstra's algorithm simulation");
                 makeDialogBox("Enjoy");
@@ -158,53 +132,10 @@ public class GUI extends JFrame implements ActionListener
         }
         
     }
-    public void paint (Graphics g){
-        super.paint(g);
-        Graphics2D g2 = (Graphics2D) g;
-
-        for(Node node : map.nodes){
-            int x = node.getXCo();
-            int y = node.getYCo();
-            int textOffset = 5; 
-
-            for(Link link : node.getLinks()){
-                Node endNode = link.getEnd();
-                int eX = endNode.getXCo(); 
-                int eY = endNode.getYCo();
-                Color linkColor = Color.MAGENTA;
-
-                if(map.shortestPath.contains(node) && map.shortestPath.contains(endNode)){
-                    linkColor = Color.GREEN; 
-                }
-
-                g2.setColor(linkColor);
-                Line2D line = new Line2D.Float(x, y, eX, eY);
-                g2.draw(line);
-            }
-
-            Color nodeColor = Color.RED;
-
-            if(node == map.startNode || node == map.endNode){
-                nodeColor = Color.GREEN; 
-            } else if(map.shortestPath.contains(node)){
-                nodeColor = Color.BLUE;
-            }
-           
-            g2.setColor(Color.BLACK);
-            g2.drawOval(x, y, nodeWidth, nodeWidth);
-            g2.drawString(node.getName(), x - textOffset, y - textOffset);
-            g2.setColor(nodeColor);
-            g2.fillOval(x, y, nodeWidth, nodeWidth);
-
-        }
-
-    }
-
-    public void setMap(Map map){
+    
+public void setMap(Map map){
         this.map = map; 
-        this.repaint();
+        mapUI.setMap(map);
+        repaint();
     }
-
-
-
 }
