@@ -7,6 +7,9 @@
  */
 
 import java.util.ArrayList;
+import java.util.Scanner; 
+import java.io.IOException;
+import java.io.File; 
 
 public class Map {
 
@@ -66,6 +69,37 @@ public class Map {
         startNode = nodeA;
         endNode = nodeH;
     }
+
+//     public void useCSVMap(){
+//         final String CSVMAPFILE = "node.csv";
+//         final int MAXLINES = 100; //change to be number of max nodes etc 
+//         final int VALUESPERLINE = 3; //see if can change? 
+       
+//         File csvMapFile = new File(CSVMAPFILE);
+//         String CSVLines[] = new String[MAXLINES];
+//         String allValues[][] = new String[MAXLINES][VALUESPERLINE];
+//         int lineCount = 0; 
+
+//         try {
+//             Scanner fileReader = new Scanner(csvMapFile);
+
+//             while (fileReader.hasNextLine() && lineCount < MAXLINES){
+//                 String line = fileReader.nextLine();
+//                 CSVLines[lineCount] = line; 
+//                 lineCount++; 
+//             }
+
+//             for(int i = 0; i < lineCount ; i++){
+//                 String values[] = CSVLines[i].split(",");
+
+//                 for(int j = 0; j < values.length; j++){
+//                     System.out.println(values[j]);
+//                 }
+//             }
+
+//         }catch (IOException e) {System.out.println(e);}
+//     }
+
 
 
 }

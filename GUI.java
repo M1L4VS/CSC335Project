@@ -2,7 +2,7 @@
  * Write a description of class GUI here.
  * GUI class
  * @author Mila van Stokkum
- * @version v2 18/07/2023 
+ * @version v3 18/07/2023 
  */
 
 import javax.swing.*;
