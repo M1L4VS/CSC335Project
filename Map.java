@@ -83,14 +83,13 @@ public class Map {
 
     public void useRandomMap() {
         nodes.clear();
-        int numberOfNodes = (int) ((Math.random() * 200) + 100); //up to 200 nodes
+        int numberOfNodes = (int) ((Math.random() * 30) + 1); //up to 100 nodes, always got at least 1 node
         int numberOfLinks = 3; // random # between 1 and 3 
 
         for (int i = 0; i < numberOfNodes; i++) {
             String nodeNameString = Integer.toString(i);
-            double nodeCoord = (Math.random() * NODESDIM + 10); 
-            int x = (int) (nodeCoord);
-            int y = (int) (nodeCoord);
+            int x = (int) ((Math.random() * NODESDIM) + 10);
+            int y = (int) ((Math.random() * NODESDIM) + 10);
 
             Node node = new Node(nodeNameString, x, y);
             nodes.add(node);
