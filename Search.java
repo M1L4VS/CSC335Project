@@ -67,7 +67,7 @@ public class Search {
         Node currentNode = endNode;
         while(currentNode != null){
             map.shortestPath.add(0, currentNode);
-            currentNode = currentNode.getPrevNode();
+            currentNode = currentNode.getPrevNode(); //wrong? seems to print too many out for shortest
         }
 
         //Print out shortest path

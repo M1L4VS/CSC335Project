@@ -24,7 +24,7 @@ public class MapUI extends JPanel {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        for(Node node : map.nodes){
+        for(Node node : map.nodes){ //ERROR COMES UP FOR THIS LINE
             int x = node.getXCo();
             int y = node.getYCo();
             int textOffset = 5; 
@@ -33,12 +33,12 @@ public class MapUI extends JPanel {
                 Node endNode = link.getEnd();
                 int eX = endNode.getXCo(); 
                 int eY = endNode.getYCo();
-                Color linkColor = Color.MAGENTA;
+                Color linkColor = new Color(171, 0, 171);
                 int lineWidth = 1;
 
                 if(map.shortestPath.contains(node) && map.shortestPath.contains(endNode)){
                     lineWidth = 2; 
-                    linkColor = Color.GREEN; 
+                    linkColor = new Color(10, 196, 56); 
                 }
 
                 g2.setColor(linkColor);
@@ -47,19 +47,23 @@ public class MapUI extends JPanel {
                 g2.draw(line);
             }
 
-            Color nodeColor = Color.RED;
+            Color nodeColor = new Color(242, 51, 89);
+
 
             if(node == map.startNode || node == map.endNode){
-                nodeColor = Color.GREEN; 
+                nodeColor = new Color(10, 196, 56);
             } else if(map.shortestPath.contains(node)){
-                nodeColor = Color.BLUE;
+                nodeColor = new Color(4, 172, 209);
             }
            
             g2.setColor(Color.BLACK);
             g2.drawOval(x, y, nodeWidth, nodeWidth);
+            //g2.drawRect(x, y, nodeWidth, nodeWidth);
             g2.drawString(node.getName(), x - textOffset, y - textOffset);
             g2.setColor(nodeColor);
             g2.fillOval(x, y, nodeWidth, nodeWidth);
+            //g2.fillRect(x, y, nodeWidth, nodeWidth);
+
         }
     }
 

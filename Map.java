@@ -18,7 +18,7 @@ public class Map {
     public Node startNode;
     public Node endNode;
     public ArrayList<Node> shortestPath;
-    public final int NODESDIM = 700;
+    public final int NODESDIM = 670;
 
     public Map() {
         nodes = new ArrayList<Node>();
@@ -83,19 +83,16 @@ public class Map {
 
     public void useRandomMap() {
         nodes.clear();
-        int numberOfNodes = (int) ((Math.random() * 300) + 100);
+        int numberOfNodes = (int) ((Math.random() * 200) + 100); //up to 200 nodes
         int numberOfLinks = 3; // random # between 1 and 3 
 
         for (int i = 0; i < numberOfNodes; i++) {
             String nodeNameString = Integer.toString(i);
-            int x = (int) (Math.random() * NODESDIM);
-            int y = (int) (Math.random() * NODESDIM);
-
-            // int xnn = (int)Math.random()*500;
-            // int ynn = (int)Math.random()*500;
+            double nodeCoord = (Math.random() * NODESDIM + 10); 
+            int x = (int) (nodeCoord);
+            int y = (int) (nodeCoord);
 
             Node node = new Node(nodeNameString, x, y);
-            // Node nextNode = new Node(nextNodeNameString, xnn, ynn);
             nodes.add(node);
 
             if (i == 0){

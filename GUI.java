@@ -32,8 +32,8 @@ public class GUI extends JFrame implements ActionListener
         //get GUI window info
        
         setTitle("Dijkstra's Algorithm Simulation");
-        int xDim = 800;
-        int yDim = 800;
+        int xDim = 850;
+        int yDim = 850;
 
         //shortcuts guide
         System.out.println("Click on menus to view shortcuts");
@@ -60,8 +60,6 @@ public class GUI extends JFrame implements ActionListener
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        //ADD CSV IMPORT OPTION HERE? 
-
         menu = new JMenu("Menu");
         menuBar.add(menu);
 
@@ -81,7 +79,7 @@ public class GUI extends JFrame implements ActionListener
 
         jPanel = new JPanel(new GridBagLayout());
         add(jPanel);
-        jPanel.setBackground(Color.BLUE);
+        jPanel.setBackground(new Color(247, 173, 245));
 
         mapUI = new MapUI();
         mapUI.setPreferredSize(new Dimension(NODESDIM, NODESDIM));
@@ -95,7 +93,7 @@ public class GUI extends JFrame implements ActionListener
 
     public void makeDialogBox(String boxString){
         JDialog box = new JDialog(this);
-        box.setBounds(200, 200, 250, 150);
+        box.setBounds(200, 200, 350, 80);
         TextArea area = new TextArea(boxString);
         area.setEditable(false);
         box.add(area);
@@ -119,12 +117,13 @@ public class GUI extends JFrame implements ActionListener
                 break;
             case "Built in map" : System.out.println("Using built in map");
                 //makeDialogBox("Built in map generated");
+                
                 map.useDefaultMap();
                 search.DijkstraSearch(map);
                 repaint();
                 break;
-            case "Instructions" : System.out.println("Click enter to run Dijkstra's algorithm simulation");
-                makeDialogBox("Enjoy");
+            case "Instructions" : System.out.println("Instructions on pop up");
+                makeDialogBox("Click in the Map menu to use random [r], or a built in one [b], or to exit [e]");
                 break;
             case "Exit" : System.exit(0);
                 makeDialogBox("exiting Dijkstra's algorithm");
