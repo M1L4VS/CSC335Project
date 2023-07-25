@@ -19,6 +19,8 @@ public class Map {
     public Node endNode;
     public ArrayList<Node> shortestPath;
     public final int NODESDIM = 670;
+    private int _distanceFromStart = Integer.MAX_VALUE;
+
 
     public Map() {
         clearMap();
@@ -87,6 +89,16 @@ public class Map {
         return (int) length;
     }
 
+    private boolean isNearExistingNode(Node newNode){
+        for(Node node : nodes){
+            double distance = calculateLength(node, newNode);
+            if(distance < 30){
+                return true; 
+            }
+        }
+        return false; 
+    }
+
     public void useRandomMap() {
         clearMap();
         int numberOfNodes = (int) ((Math.random() * 30) + 2); //up to 100 nodes, always got at least 2 nodes
@@ -97,7 +109,14 @@ public class Map {
             int x = (int) ((Math.random() * NODESDIM) + 10);
             int y = (int) ((Math.random() * NODESDIM) + 10);
 
+            //make the node
             Node node = new Node(nodeNameString, x, y);
+            //node.setDistance(_distanceFromStart);
+            //check it's not too close to other nodes 
+            if(isNearExistingNode(node)){
+                i--; //regenerate this node 
+                continue; 
+            }
             nodes.add(node);
 
             if (i == 0){
