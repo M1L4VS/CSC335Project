@@ -8,7 +8,11 @@ import java.util.ArrayList;
 
 public class Search {
 
+    private ArrayList<String> messageLog = new ArrayList<String>();
+
     public void DijkstraSearch(Map map){
+
+        messageLog.clear();
 
         //Setting the start & end nodes
         Node startNode = map.startNode;
@@ -29,7 +33,7 @@ public class Search {
 
             //If we are at the end node, stop searching
             if(currentNode == endNode){
-                System.out.println("Reached end node!");
+                printMessage("Reached end node!");
                 startToEndDistance = currentNode.getDistance();
                 break;
             }
@@ -45,7 +49,7 @@ public class Search {
                     nextNode.setDistance(currentNode.getDistance() + link.getWeight());
                     nextNode.setPrevNode(currentNode);
                     queue.add(nextNode);
-                    System.out.println("Adding " + nextNode + " to the queue with distance " + nextNode.getDistance());
+                    printMessage("Adding " + nextNode + " to the queue with distance " + nextNode.getDistance());
                 }
 
                 //If the node is already visited, see if this distance is shorter than the currently set distance
@@ -54,14 +58,14 @@ public class Search {
                     if(distance < nextNode.getDistance()){
                         nextNode.setDistance(distance);
                         nextNode.setPrevNode(currentNode);
-                        System.out.println("Updating shortest total distance to " + nextNode + " is " + nextNode.getDistance());
+                        printMessage("Updating shortest total distance to " + nextNode + " is " + nextNode.getDistance());
                     }
                 }
             }
 
         }
 
-        System.out.println("Shortest distance from " + startNode + " to " + endNode + " is " + startToEndDistance);
+        printMessage("Shortest distance from " + startNode + " to " + endNode + " is " + startToEndDistance);
 
         //Track shortest path, backtrack, but fill from start so don't need to reverse
         Node currentNode = endNode;
@@ -71,12 +75,19 @@ public class Search {
         }
 
         //Print out shortest path
-        System.out.print("Shortest path is: ");
+        printMessage("Shortest path is: ");
         for(Node node : map.shortestPath){
-            System.out.print(node.getName());
-            if(node != endNode){
-                System.out.print(" -> ");
-            }
+            printMessage(node.getName());
         }
     }
+
+    private void printMessage(String message){
+        System.out.println(message);
+        messageLog.add(message);
+    }
+
+    public ArrayList<String> getMessageLog(){
+        return messageLog; 
+    }
+
 }

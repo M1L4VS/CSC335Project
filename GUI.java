@@ -1,44 +1,34 @@
+
 /**
  * Write a description of class GUI here.
  * GUI class
  * @author Mila van Stokkum
- * @version v3 18/07/2023 
+ * @version v4 25/07/2023 
  */
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Scanner;
 import java.awt.event.*;
-import javax.swing.KeyStroke.*;
-import javax.swing.JDialog.*;
-import java.awt.geom.*;
+import java.util.ArrayList;
 
-public class GUI extends JFrame implements ActionListener
-{
+public class GUI extends JFrame implements ActionListener {
     Search search = new Search();
-    
-    //class variables
+
+    // class variables
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
     JTextArea jTextArea;
     JPanel jPanel;
     MapUI mapUI;
-    public final int NODESDIM = 700;
 
     Map map;
 
-    public GUI()  {
-        //get GUI window info
-       
+    public GUI() {
+        // get GUI window info
+
         setTitle("Dijkstra's Algorithm Simulation");
-        int xDim = 850;
-        int yDim = 850;
 
-        //shortcuts guide
-        System.out.println("Click on menus to view shortcuts");
-
-        this.getContentPane().setPreferredSize(new Dimension(xDim, yDim)); 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         this.toFront();
@@ -49,7 +39,7 @@ public class GUI extends JFrame implements ActionListener
         menu = new JMenu("Maps");
         menuBar.add(menu);
 
-        //adding items
+        // adding items
         menuItem = new JMenuItem("Random map");
         menuItem.setAccelerator(KeyStroke.getKeyStroke('r'));
         menuItem.addActionListener(this);
@@ -73,25 +63,25 @@ public class GUI extends JFrame implements ActionListener
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.BOTH;
-
-        jPanel = new JPanel(new GridBagLayout());
-        add(jPanel);
-        jPanel.setBackground(new Color(247, 173, 245));
+        Container container = getContentPane();
 
         mapUI = new MapUI();
-        mapUI.setPreferredSize(new Dimension(NODESDIM, NODESDIM));
-        jPanel.add(mapUI, c);
+        container.add(mapUI, BorderLayout.CENTER);
 
         jTextArea = new JTextArea(10, 20);
-        //jPanel.add(jTextArea, c);
+        jTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(jTextArea);
+        container.add(scrollPane, BorderLayout.SOUTH);
 
-        this.pack();   
+        this.pack();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // shortcuts guide
+        printMessage("Click on menus to view shortcuts");
+
     }
 
-    public void makeDialogBox(String boxString){
+    public void makeDialogBox(String boxString) {
         JDialog box = new JDialog(this);
         box.setBounds(200, 200, 350, 80);
         TextArea area = new TextArea(boxString);
@@ -102,39 +92,56 @@ public class GUI extends JFrame implements ActionListener
         box.setTitle("Pop up");
     }
 
-
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
 
-
-        switch(cmd){
-            case "Random map" : System.out.println("Using random map");
-                //makeDialogBox("Random map generated");
+        switch (cmd) {
+            case "Random map":
+                printMessage("Using random map");
                 map.useRandomMap();
-                search.DijkstraSearch(map);
-                repaint();
+                searchMap();
                 break;
-            case "Built in map" : System.out.println("Using built in map");
-                //makeDialogBox("Built in map generated");
-                
+            case "Built in map":
+                printMessage("Using built in map");
                 map.useDefaultMap();
-                search.DijkstraSearch(map);
-                repaint();
+                searchMap();
                 break;
-            case "Instructions" : System.out.println("Instructions on pop up");
+            case "Instructions":
+                printMessage("Instructions on pop up");
                 makeDialogBox("Click in the Map menu to use random [r], or a built in one [b], or to exit [e]");
                 break;
-            case "Exit" : System.exit(0);
+            case "Exit":
+                System.exit(0);
                 makeDialogBox("exiting Dijkstra's algorithm");
                 break;
         }
-        
+
     }
-    
-public void setMap(Map map){
-        this.map = map; 
+
+    public void setMap(Map map) {
+        this.map = map;
         mapUI.setMap(map);
         repaint();
+    }
+
+    public void searchMap() {
+        // clearing JTextArea each time you refresh
+        jTextArea.selectAll();
+        jTextArea.replaceSelection("");
+
+        search.DijkstraSearch(map);
+        printMessages(search.getMessageLog());
+        repaint();
+
+    }
+
+    public void printMessage(String message) {
+        jTextArea.append(message + "\n");
+    }
+
+    public void printMessages(ArrayList<String> messages){
+        for(String message : messages){
+            printMessage(message);
+        }
     }
 }

@@ -16,13 +16,9 @@
         //Initialise map and create nodes & links
         Map map = new Map();
         map.useRandomMap();
-        
-
-        //Create the search object, and run it on the map
-        Search search = new Search();
-        search.DijkstraSearch(map);
 
         gui.setMap(map);
+        gui.searchMap();
     }
 
  }
