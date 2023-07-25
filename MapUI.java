@@ -24,7 +24,7 @@ public class MapUI extends JPanel {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        for(Node node : map.nodes){ //ERROR COMES UP FOR THIS LINE
+        for(Node node : map.nodes){ 
             int x = node.getXCo();
             int y = node.getYCo();
             int textOffset = 5; 

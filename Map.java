@@ -21,13 +21,19 @@ public class Map {
     public final int NODESDIM = 670;
 
     public Map() {
+        clearMap();
+    }
+
+    public void clearMap(){
         nodes = new ArrayList<Node>();
         shortestPath = new ArrayList<Node>();
+        startNode = null;
+        endNode = null;
     }
 
     public void useDefaultMap() {
 
-        nodes.clear();
+        clearMap();
 
         // Create map and fill with nodes and links
 
@@ -82,8 +88,8 @@ public class Map {
     }
 
     public void useRandomMap() {
-        nodes.clear();
-        int numberOfNodes = (int) ((Math.random() * 30) + 1); //up to 100 nodes, always got at least 1 node
+        clearMap();
+        int numberOfNodes = (int) ((Math.random() * 30) + 2); //up to 100 nodes, always got at least 2 nodes
         int numberOfLinks = 3; // random # between 1 and 3 
 
         for (int i = 0; i < numberOfNodes; i++) {
@@ -130,6 +136,7 @@ public class Map {
     }
 
     public void useCSVMap() {
+        clearMap();
         final String CSVMAPFILE = "node.csv";
         final int MAXLINES = 100; // change to be number of max nodes etc
         final int VALUESPERLINE = 3; // see if can change?
