@@ -3,18 +3,22 @@
  * Write a description of class GUI here.
  * GUI class
  * @author Mila van Stokkum
- * @version v4 25/07/2023 
+ * @version v8 28/07/2023 
  */
 
+ //Imports needed
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+//Add JFrame for graphics and ActionListener for events 
 public class GUI extends JFrame implements ActionListener {
+    
+    //Make a new search 
     Search search = new Search();
 
-    // class variables
+    //JFrame variables
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
@@ -22,10 +26,11 @@ public class GUI extends JFrame implements ActionListener {
     JPanel jPanel;
     MapUI mapUI;
 
+    //Make a map 
     Map map;
 
     public GUI() {
-        // get GUI window info
+        //Get GUI window info
 
         setTitle("Dijkstra's Algorithm Simulation");
 
@@ -34,12 +39,13 @@ public class GUI extends JFrame implements ActionListener {
         this.toFront();
         this.setVisible(true);
 
+        //Make maps menu
         menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
         menu = new JMenu("Maps");
         menuBar.add(menu);
 
-        // adding items
+        //Adding map items
         menuItem = new JMenuItem("Random map");
         menuItem.setAccelerator(KeyStroke.getKeyStroke('r'));
         menuItem.addActionListener(this);
@@ -50,9 +56,11 @@ public class GUI extends JFrame implements ActionListener {
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
+        //Adding instructions and exit menu 
         menu = new JMenu("Menu");
         menuBar.add(menu);
 
+        //Adding items to the menu 
         menuItem = new JMenuItem("Instructions");
         menuItem.setAccelerator(KeyStroke.getKeyStroke('i'));
         menuItem.addActionListener(this);
@@ -63,27 +71,32 @@ public class GUI extends JFrame implements ActionListener {
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
+        //Make window 
         Container container = getContentPane();
 
+        //Make map graphics 
         mapUI = new MapUI();
         container.add(mapUI, BorderLayout.CENTER);
 
-        jTextArea = new JTextArea(10, 20);
+        //Area on side of screen for algorithm logic messages 
+        jTextArea = new JTextArea(10, 30);
         jTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(jTextArea);
-        container.add(scrollPane, BorderLayout.SOUTH);
+        container.add(scrollPane, BorderLayout.EAST);
 
+        //Pack everything and set to fit max size it can for the user's screen 
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // shortcuts guide
+        //Shortcuts guide
         printMessage("Click on menus to view shortcuts");
 
     }
 
+    //Code for pop up box 
     public void makeDialogBox(String boxString) {
         JDialog box = new JDialog(this);
-        box.setBounds(200, 200, 350, 80);
+        box.setBounds(200, 200, 500, 100);
         TextArea area = new TextArea(boxString);
         area.setEditable(false);
         box.add(area);
@@ -92,13 +105,14 @@ public class GUI extends JFrame implements ActionListener {
         box.setTitle("Pop up");
     }
 
+    //Actions
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-
         switch (cmd) {
+           //Each case that could happen
             case "Random map":
                 printMessage("Using random map");
-                map.useRandomMap();
+                map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
                 searchMap();
                 break;
             case "Built in map":
@@ -115,17 +129,19 @@ public class GUI extends JFrame implements ActionListener {
                 makeDialogBox("exiting Dijkstra's algorithm");
                 break;
         }
-
     }
 
+    //Make the map
     public void setMap(Map map) {
         this.map = map;
         mapUI.setMap(map);
+        map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
         repaint();
     }
 
+    //Search the map
     public void searchMap() {
-        // clearing JTextArea each time you refresh
+        //Clearing JTextArea each time you refresh
         jTextArea.selectAll();
         jTextArea.replaceSelection("");
 
@@ -135,10 +151,12 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
+    //Make System.out.printlns neater
     public void printMessage(String message) {
         jTextArea.append(message + "\n");
     }
 
+        //Print messages in JTextArea
     public void printMessages(ArrayList<String> messages){
         for(String message : messages){
             printMessage(message);

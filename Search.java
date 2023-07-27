@@ -2,16 +2,18 @@
  * Write a description of class Search here.
  * Use node class
  * @author Mila van Stokkum
- * @version v5 09/07/2023
+ * @version v10 28/07/2023
  */
 import java.util.ArrayList;
 
 public class Search {
 
+    //Track logic messages to print out for user
     private ArrayList<String> messageLog = new ArrayList<String>();
 
     public void DijkstraSearch(Map map){
 
+        //Reset messages every search
         messageLog.clear();
 
         //Setting the start & end nodes
@@ -25,11 +27,15 @@ public class Search {
 
         int startToEndDistance = 0;
 
+        //While there are still nodes to search 
         while(queue.size() > 0){
 
-            //Get the first node in the queue
+            //Get the first node in the queue, then remove it 
             Node currentNode = queue.get(0);
             queue.remove(0);
+
+            //Which node is being currently looked at 
+            printMessage("Visiting " + currentNode + " with distance " + currentNode.getDistance());
 
             //If we are at the end node, stop searching
             if(currentNode == endNode){
@@ -65,13 +71,14 @@ public class Search {
 
         }
 
+        //Total shortest distance for the path 
         printMessage("Shortest distance from " + startNode + " to " + endNode + " is " + startToEndDistance);
 
         //Track shortest path, backtrack, but fill from start so don't need to reverse
         Node currentNode = endNode;
         while(currentNode != null){
             map.shortestPath.add(0, currentNode);
-            currentNode = currentNode.getPrevNode(); //wrong? seems to print too many out for shortest
+            currentNode = currentNode.getPrevNode(); 
         }
 
         //Print out shortest path
@@ -81,11 +88,13 @@ public class Search {
         }
     }
 
+    //Make all the System.out.printlns shorter 
     private void printMessage(String message){
         System.out.println(message);
         messageLog.add(message);
     }
 
+    //Get all the printMessages 
     public ArrayList<String> getMessageLog(){
         return messageLog; 
     }

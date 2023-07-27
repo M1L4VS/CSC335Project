@@ -3,9 +3,10 @@
  * Write a description of class Map here.
  * Use node class
  * @author Mila van Stokkum
- * @version v6 20/07/2023
+ * @version v11 28/07/2023
  */
 
+ //Imports needed 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -14,74 +15,76 @@ import java.io.File;
 
 public class Map {
 
+    //Node variables 
     public ArrayList<Node> nodes;
     public Node startNode;
     public Node endNode;
     public ArrayList<Node> shortestPath;
-    public final int NODESDIM = 670;
-    private int _distanceFromStart = Integer.MAX_VALUE;
 
-
+    //Reset the screen each time 
     public Map() {
         clearMap();
     }
 
-    public void clearMap(){
+    //Specifics of resetting the map
+    public void clearMap() {
         nodes = new ArrayList<Node>();
         shortestPath = new ArrayList<Node>();
         startNode = null;
         endNode = null;
     }
 
+    //Built in map option 
     public void useDefaultMap() {
 
         clearMap();
 
-        // Create map and fill with nodes and links
+        //Create map and fill with nodes and links
 
-        Node nodeA = new Node("A", 50, 80);
+        Node nodeA = new Node("0", 50, 80);
         nodes.add(nodeA);
-        Node nodeB = new Node("B", 100, 120);
+        Node nodeB = new Node("2", 100, 120);
         nodes.add(nodeB);
-        Node nodeC = new Node("C", 150, 130);
+        Node nodeC = new Node("3", 150, 130);
         nodes.add(nodeC);
-        Node nodeD = new Node("D", 140, 70);
+        Node nodeD = new Node("4", 140, 70);
         nodes.add(nodeD);
-        Node nodeE = new Node("E", 200, 100);
+        Node nodeE = new Node("5", 200, 100);
         nodes.add(nodeE);
-        Node nodeF = new Node("F", 250, 200);
+        Node nodeF = new Node("5", 250, 200);
         nodes.add(nodeF);
-        Node nodeG = new Node("G", 300, 120);
+        Node nodeG = new Node("6", 300, 120);
         nodes.add(nodeG);
-        Node nodeH = new Node("H", 400, 300);
+        Node nodeH = new Node("7", 400, 300);
         nodes.add(nodeH);
 
-        // Add links
-        nodeA.addLink(new Link(nodeA, nodeB, 1));
-        nodeA.addLink(new Link(nodeA, nodeC, 1));
-        nodeA.addLink(new Link(nodeA, nodeD, 1));
+        //Add links
+        nodeA.addLink(new Link(nodeA, nodeB));
+        nodeA.addLink(new Link(nodeA, nodeC));
+        nodeA.addLink(new Link(nodeA, nodeD));
 
-        nodeB.addLink(new Link(nodeB, nodeD, 1));
-        nodeB.addLink(new Link(nodeB, nodeF, 1));
+        nodeB.addLink(new Link(nodeB, nodeD));
+        nodeB.addLink(new Link(nodeB, nodeF));
 
-        nodeC.addLink(new Link(nodeC, nodeD, 1));
+        nodeC.addLink(new Link(nodeC, nodeD));
 
-        nodeD.addLink(new Link(nodeD, nodeE, 1));
-        nodeD.addLink(new Link(nodeD, nodeF, 1));
+        nodeD.addLink(new Link(nodeD, nodeE));
+        nodeD.addLink(new Link(nodeD, nodeF));
 
-        nodeE.addLink(new Link(nodeE, nodeF, 1));
-        nodeE.addLink(new Link(nodeE, nodeG, 1));
-        nodeE.addLink(new Link(nodeE, nodeH, 1));
+        nodeE.addLink(new Link(nodeE, nodeF));
+        nodeE.addLink(new Link(nodeE, nodeG));
+        nodeE.addLink(new Link(nodeE, nodeH));
 
-        nodeF.addLink(new Link(nodeF, nodeG, 1));
+        nodeF.addLink(new Link(nodeF, nodeG));
 
-        nodeG.addLink(new Link(nodeG, nodeH, 1));
+        nodeG.addLink(new Link(nodeG, nodeH));
 
-        // set start and end nodes
+        //Set start and end nodes
         startNode = nodeA;
         endNode = nodeH;
     }
 
+    //Use pythagoras to calculate distance or weight of each link between nodes
     private int calculateLength(Node startNode, Node endNode) {
         double xDif = endNode.getXCo() - startNode.getXCo();
         double yDif = endNode.getYCo() - startNode.getYCo();
@@ -89,102 +92,86 @@ public class Map {
         return (int) length;
     }
 
-    private boolean isNearExistingNode(Node newNode){
-        for(Node node : nodes){
+    //Don't let the nodes be generated too close together 
+    private boolean isNearExistingNode(Node newNode) {
+        for (Node node : nodes) {
             double distance = calculateLength(node, newNode);
-            if(distance < 30){
-                return true; 
+            if (distance < 30) {
+                return true;
             }
         }
-        return false; 
+        return false;
     }
 
-    public void useRandomMap() {
+    //Random generated map option 
+    public void useRandomMap(int width, int height) {
         clearMap();
-        int numberOfNodes = (int) ((Math.random() * 30) + 2); //up to 100 nodes, always got at least 2 nodes
-        int numberOfLinks = 3; // random # between 1 and 3 
+        int numberOfNodes = (int) ((Math.random() * 295) + 5); //Up to 300 nodes, always got at least 5 nodes
+        int numberOfLinks = 3; //3 links for each node 
 
         for (int i = 0; i < numberOfNodes; i++) {
-            String nodeNameString = Integer.toString(i);
-            int x = (int) ((Math.random() * NODESDIM) + 10);
-            int y = (int) ((Math.random() * NODESDIM) + 10);
+            
+            //To center it with a border around the edge for space
+            int widthBuffer = (int) (width * 0.025);
+            int heightBuffer = (int) (height * 0.025);
+            int x = (int) (Math.random() * (width * 0.95) + widthBuffer);
+            int y = (int) (Math.random() * (height * 0.95) + heightBuffer);
 
-            //make the node
-            Node node = new Node(nodeNameString, x, y);
-            //node.setDistance(_distanceFromStart);
-            //check it's not too close to other nodes 
-            if(isNearExistingNode(node)){
-                i--; //regenerate this node 
-                continue; 
+            //Make the node
+            Node node = new Node(Integer.toString(i), x, y);
+            
+            //Check it's not too close to other nodes
+            if(isNearExistingNode(node)) {
+                i--; //Regenerate this node (go back a step)
+                continue;
             }
+            
+            //Add this node to the map
             nodes.add(node);
 
-            if (i == 0){
+            //Setting start and end nodes 
+            if(i == 0){
                 this.startNode = node;
             }
-            if (i == numberOfNodes - 1){
+            if(i == numberOfNodes - 1){
                 this.endNode = node;
             }
         }
 
+        //Going through every node for each node to find 3 closest ones
         for (Node nodeStart : nodes) {
+
+            //Treemap sort acsendingly so can take first 3 values to get closest 3 nodes
             TreeMap<Integer, Node> closestNodes = new TreeMap<Integer, Node>();
 
+            //Don't make a link between a node and itself 
             for (Node nodeEnd : nodes) {
                 if (nodeStart == nodeEnd) {
                     continue;
                 }
-                // calculate distance between the start and end nodes to find the nearest 3
-                // nodes
+                
+                //Calculate distance between the current start and current end node
                 int distance = calculateLength(nodeStart, nodeEnd);
-                closestNodes.put(distance, nodeEnd);
+                closestNodes.put(distance, nodeEnd); //Adding to Treemap
             }
 
             int linkCount = 0;
+            //Get 3 first values in Treemap - 3 closest nodes to link to 
             for (Integer key : closestNodes.keySet()) {
+                //If we already have 3 links, don't find any more 
                 if (linkCount > numberOfLinks) {
                     break;
                 }
+                //Key is the distance
                 Node node = closestNodes.get(key);
-                nodeStart.addLink(new Link(nodeStart, node, 1));
+                //Add a link going both ways to eliminate islands or pockets of disconnected nodes, can always reach end node
+                nodeStart.addLink(new Link(nodeStart, node));
+                node.addLink(new Link(node, nodeStart));
                 linkCount++;
             }
 
         }
 
-    }
-
-    public void useCSVMap() {
-        clearMap();
-        final String CSVMAPFILE = "node.csv";
-        final int MAXLINES = 100; // change to be number of max nodes etc
-        final int VALUESPERLINE = 3; // see if can change?
-
-        File csvMapFile = new File(CSVMAPFILE);
-        String CSVLines[] = new String[MAXLINES];
-        String allValues[][] = new String[MAXLINES][VALUESPERLINE];
-        int lineCount = 0;
-
-        try {
-            Scanner fileReader = new Scanner(csvMapFile);
-
-            while (fileReader.hasNextLine() && lineCount < MAXLINES) {
-                String line = fileReader.nextLine();
-                CSVLines[lineCount] = line;
-                lineCount++;
-            }
-
-            for (int i = 0; i < lineCount; i++) {
-                String values[] = CSVLines[i].split(",");
-
-                for (int j = 0; j < values.length; j++) {
-                    System.out.println(values[j]);
-                }
-            }
-
-        } catch (IOException e) {
-            System.out.println(e);
-        }
     }
 
 }

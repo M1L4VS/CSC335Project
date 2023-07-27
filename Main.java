@@ -2,7 +2,7 @@
  * Write a description of class Main here.
  * Use node class
  * @author Mila van Stokkum
- * @version v5 09/07/2023
+ * @version v7 28/07/2023
  */
 
  public class Main{
@@ -15,8 +15,8 @@
 
         //Initialise map and create nodes & links
         Map map = new Map();
-        map.useRandomMap();
-
+        
+        //Add map to GUI and search it
         gui.setMap(map);
         gui.searchMap();
     }

@@ -2,12 +2,15 @@
  * Write a description of class Node here.
  * Use node class
  * @author Mila van Stokkum
- * @version v5 09/07/2023
+ * @version v8 28/07/2023
  */
 
+ //Imports needed
  import java.util.ArrayList;
 
  public class Node {
+
+   //Node variables 
     private String _name;
     private Node _prevNode;
     private int _xCo;
@@ -15,12 +18,15 @@
     private int _distanceFromStart = Integer.MAX_VALUE;
     private ArrayList<Link> _adjacentLinks = new ArrayList<Link>();
 
+    //Make all nodes with a name and coordinates 
     public Node(String newName, int xCo, int yCo) {
        _name = newName;
        _xCo = xCo;
        _yCo = yCo;  
     }
  
+    //All the getters and setters for nodes
+
     public String getName() {
        return _name;
     }

@@ -2,22 +2,24 @@
  * Write a description of class Link here.
  * Link class
  * @author Mila van Stokkum
- * @version v3 13/06/2023 
+ * @version v6 28/07/2023 
  */
 
 public class Link{
 
+    //Node variables
     private Node _end;
     private Node _start;
     private int _weight;
 
-    public Link(Node start, Node end, int weight) {
+    //Create links with a start and end, weight is the distance 
+    public Link(Node start, Node end) {
         _start = start;
         _end = end;
-        int length = calculateLength(start, end);
-        _weight = weight * length;
+        _weight = calculateLength(start, end);
     }
 
+    //Getters and setters needed for links 
     public Node getStart(){
         return _start;
     }
@@ -30,8 +32,11 @@ public class Link{
         return _weight;
     }
 
+    //Uses pythagoras to calculate weight; distance
     private int calculateLength(Node startNode, Node endNode){
-        double length = (Math.sqrt((endNode.getXCo() - startNode.getXCo())^2 + (endNode.getYCo() - startNode.getYCo())^2));
+        double xDif = endNode.getXCo() - startNode.getXCo();
+        double yDif = endNode.getYCo() - startNode.getYCo();
+        double length = (Math.sqrt((xDif * xDif) + (yDif * yDif)));        
         return (int)length; 
     }
 }
