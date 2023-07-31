@@ -8,10 +8,7 @@
 
  //Imports needed 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.TreeMap;
-import java.io.IOException;
-import java.io.File;
 
 public class Map {
 
@@ -88,7 +85,7 @@ public class Map {
     private int calculateLength(Node startNode, Node endNode) {
         double xDif = endNode.getXCo() - startNode.getXCo();
         double yDif = endNode.getYCo() - startNode.getYCo();
-        double length = (Math.sqrt((xDif * xDif) + (yDif * yDif)));
+        double length = (Math.sqrt(Math.abs(xDif * -xDif) + Math.abs(yDif * yDif)));
         return (int) length;
     }
 
