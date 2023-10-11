@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=GUI
+comment1.params=
+comment1.target=GUI()
+comment2.params=boxString
+comment2.target=void\ makeDialogBox(java.lang.String)
+comment3.params=e
+comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment4.params=map
+comment4.target=void\ setMap(Map)
+comment5.params=
+comment5.target=void\ searchMap()
+comment6.params=message
+comment6.target=void\ printMessage(java.lang.String)
+comment7.params=messages
+comment7.target=void\ printMessages(java.util.ArrayList)
+numComments=8

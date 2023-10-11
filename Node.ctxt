@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Node
+comment1.params=newName\ xCo\ yCo
+comment1.target=Node(java.lang.String,\ int,\ int)
+comment10.params=
+comment10.target=int\ getXCo()
+comment11.params=
+comment11.target=int\ getYCo()
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment3.params=distance
+comment3.target=void\ setDistance(int)
+comment4.params=
+comment4.target=int\ getDistance()
+comment5.params=link
+comment5.target=void\ addLink(Link)
+comment6.params=
+comment6.target=java.util.ArrayList\ getLinks()
+comment7.params=
+comment7.target=java.lang.String\ toString()
+comment8.params=prevNode
+comment8.target=void\ setPrevNode(Node)
+comment9.params=
+comment9.target=Node\ getPrevNode()
+numComments=12

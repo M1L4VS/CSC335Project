@@ -31,7 +31,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public GUI() {
         //Get GUI window info
-
+        
         setTitle("Dijkstra's Algorithm Simulation");
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

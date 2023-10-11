@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Map
+comment1.params=
+comment1.target=Map()
+comment2.params=
+comment2.target=void\ clearMap()
+comment3.params=
+comment3.target=void\ useDefaultMap()
+comment4.params=startNode\ endNode
+comment4.target=int\ calculateLength(Node,\ Node)
+comment5.params=newNode
+comment5.target=boolean\ isNearExistingNode(Node)
+comment6.params=width\ height
+comment6.target=void\ useRandomMap(int,\ int)
+numComments=7
