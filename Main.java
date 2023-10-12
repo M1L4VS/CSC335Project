@@ -14,7 +14,7 @@
         gui.setVisible(true);
 
         //Make the programme wait until loading up everything because BlueJ can't work with it as it was
-        Thread.sleep(500);
+        Thread.sleep(1000);
         
         //Initialise map and create nodes & links
         Map map = new Map();
