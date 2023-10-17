@@ -31,7 +31,7 @@ public class Map {
     }
 
     //Built in map option 
-    public void useDefaultMap() {
+    public void useBuiltInMap() {
 
         clearMap();
 
@@ -39,13 +39,13 @@ public class Map {
 
         Node nodeA = new Node("0", 50, 80);
         nodes.add(nodeA);
-        Node nodeB = new Node("2", 100, 120);
+        Node nodeB = new Node("1", 100, 120);
         nodes.add(nodeB);
-        Node nodeC = new Node("3", 150, 130);
+        Node nodeC = new Node("2", 150, 130);
         nodes.add(nodeC);
-        Node nodeD = new Node("4", 140, 70);
+        Node nodeD = new Node("3", 140, 70);
         nodes.add(nodeD);
-        Node nodeE = new Node("5", 200, 100);
+        Node nodeE = new Node("4", 200, 100);
         nodes.add(nodeE);
         Node nodeF = new Node("5", 250, 200);
         nodes.add(nodeF);
@@ -88,8 +88,7 @@ public class Map {
         return (int) length;
     }
 
-    //Don't let the nodes be generated too close together
-    //ArrayList<Node> nodesCopy = new ArrayList<>(nodes);
+    //Don't let the nodes be generated too close together 
     private boolean isNearExistingNode(Node newNode) {
         for (Node node : nodes) {
             double distance = calculateLength(node, newNode);

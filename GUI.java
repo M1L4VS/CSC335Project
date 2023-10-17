@@ -102,7 +102,7 @@ public class GUI extends JFrame implements ActionListener {
         box.add(area);
         box.toFront();
         box.setVisible(true);
-        box.setTitle("Pop up");
+        box.setTitle("Instructions 💡");
     }
 
     //Actions
@@ -111,14 +111,12 @@ public class GUI extends JFrame implements ActionListener {
         switch (cmd) {
                 //Each case that could happen
             case "Random map":
-                printMessage("Using random map");
-                map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
-                searchMap();
+               loadDefaultMap();
                 break;
             case "Built in map":
-                printMessage("Using built in map");
-                map.useDefaultMap();
-                searchMap();
+                Map builtInMap = new Map();
+                builtInMap.useBuiltInMap();
+                setMap(builtInMap);
                 break;
             case "Instructions":
                 printMessage("Instructions on pop up");
@@ -131,23 +129,26 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 
+    //Loading default map
+    public void loadDefaultMap(){
+        Map newMap = new Map();
+        newMap.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
+        setMap(newMap);
+    }
+
     //Make the map
-    public void setMap(Map map) {
-        this.map = map;
-        mapUI.setMap(null);
-        map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
-        mapUI.setMap(map);
-        if(map != null){
-             repaint();
-        }
+    private void setMap(Map newMap) {
+        this.map = newMap;
+        searchMap();
+        mapUI.setMap(newMap);
+        repaint();
     }
 
     //Search the map
-    public void searchMap() {
+    private void searchMap() {
         //Clearing JTextArea each time you refresh
         jTextArea.selectAll();
         jTextArea.replaceSelection("");
-
         search.DijkstraSearch(map);
         printMessages(search.getMessageLog());
         repaint();

@@ -13,14 +13,10 @@
         gui.setVisible(true);
 
         // Make the program wait to allow GUI to load
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
-        // Initialize the map
-        Map map = new Map();
-
-        // Set the map in the GUI and trigger repaint
-        gui.setMap(map);
-        gui.searchMap();
+       //Add map to GUI and search
+       gui.loadDefaultMap();
     }
 }
 
