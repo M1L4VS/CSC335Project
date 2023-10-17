@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Map here.
  * Use node class
@@ -89,7 +88,8 @@ public class Map {
         return (int) length;
     }
 
-    //Don't let the nodes be generated too close together 
+    //Don't let the nodes be generated too close together
+    //ArrayList<Node> nodesCopy = new ArrayList<>(nodes);
     private boolean isNearExistingNode(Node newNode) {
         for (Node node : nodes) {
             double distance = calculateLength(node, newNode);

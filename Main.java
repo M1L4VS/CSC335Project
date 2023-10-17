@@ -5,24 +5,23 @@
  * @version v7 28/07/2023
  */
 
- public class Main{
+ public class Main {
 
-    public static void main(String[] args) throws InterruptedException{
-
-        //Initialise GUI window 
-        GUI gui = new GUI(); 
+    public static void main(String[] args) throws InterruptedException {
+        // Initialize the GUI
+        GUI gui = new GUI();
         gui.setVisible(true);
 
-        //Make the programme wait until loading up everything because BlueJ can't work with it as it was
+        // Make the program wait to allow GUI to load
         Thread.sleep(1000);
-        
-        //Initialise map and create nodes & links
-        Map map = new Map();
-        
-        //Add map to GUI and search it
-        gui.setMap(map);
-        gui.searchMap();        
-    }
 
- }
+        // Initialize the map
+        Map map = new Map();
+
+        // Set the map in the GUI and trigger repaint
+        gui.setMap(map);
+        gui.searchMap();
+    }
+}
+
  

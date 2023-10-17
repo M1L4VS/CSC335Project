@@ -6,7 +6,7 @@
  * @version v8 28/07/2023 
  */
 
- //Imports needed
+//Imports needed
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 //Add JFrame for graphics and ActionListener for events 
 public class GUI extends JFrame implements ActionListener {
-    
+
     //Make a new search 
     Search search = new Search();
 
@@ -31,7 +31,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public GUI() {
         //Get GUI window info
-        
+
         setTitle("Dijkstra's Algorithm Simulation");
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -109,7 +109,7 @@ public class GUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         switch (cmd) {
-           //Each case that could happen
+                //Each case that could happen
             case "Random map":
                 printMessage("Using random map");
                 map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
@@ -136,7 +136,9 @@ public class GUI extends JFrame implements ActionListener {
         this.map = map;
         mapUI.setMap(map);
         map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
-        repaint();
+        if(map != null){
+             repaint();
+        }
     }
 
     //Search the map
@@ -156,7 +158,7 @@ public class GUI extends JFrame implements ActionListener {
         jTextArea.append(message + "\n");
     }
 
-        //Print messages in JTextArea
+    //Print messages in JTextArea
     public void printMessages(ArrayList<String> messages){
         for(String message : messages){
             printMessage(message);
