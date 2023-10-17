@@ -134,8 +134,9 @@ public class GUI extends JFrame implements ActionListener {
     //Make the map
     public void setMap(Map map) {
         this.map = map;
-        mapUI.setMap(map);
+        mapUI.setMap(null);
         map.useRandomMap(mapUI.getWidth(), mapUI.getHeight());
+        mapUI.setMap(map);
         if(map != null){
              repaint();
         }
